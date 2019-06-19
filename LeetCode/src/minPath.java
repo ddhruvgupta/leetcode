@@ -1,70 +1,79 @@
-import java.util.Arrays;
+
 
 public class minPath {
-    public static int minPathSum(int[][] grid) {
-		int m = grid.length; // number of rows
-		int n = grid[0].length; //# of cols
-    	
-		int row = 0, col = 1;
-		
-		int[][] path = new int[m][n];
-		path = arrayClone(grid);
-		
-		
-		while(row<m) {
-			
-			while(col<n) {
-			path[row][col]= path[row][col] + preceding_node(grid,row,col);
-			System.out.println(Arrays.toString(path[row]));
-			col++;
-			}
-			col = 0;
-			row++;
-		}
-		
-    	return path[m-1][n-1];
-        
-    }
 
-	private static int preceding_node(int[][] grid, int row, int col) {
-		// TODO Auto-generated method stub
-		
-		int prev_row = row;
-		int prev_col = col;
-		
-		if(row>0 && col>0) {
-			prev_row = row-1;
-			prev_col = col-1;
-			int val = Math.min(grid[prev_row][col], grid[row][prev_col]);
-			System.out.println(row+"-"+col+"-"+val);
-			return val;
+	public static int minPathSum(int[][] grid) {
+		int m = grid.length; // number of rows
+		int n = grid[0].length; // # of cols
+
+		for (int i = 0; i < m; i++) {
+			for (int j = 0; j < n; j++) {
+				updateVal(grid, i, j);
+
+			}
+
 		}
-			
-		if(row>0) {
-			prev_row = row-1;
-			int val = grid[prev_row][col];
-			System.out.println(row+"-"+col+"-"+val);
-			return val;	
-		}
-			
-		if(col>0) {
-			prev_col = col-1;
-			int val = grid[row][prev_col];
-			System.out.println(row+"-"+col+"-"+val);
-			return val;
-		}
-			
-		return 0;
+
+		return grid[m - 1][n - 1];
 
 	}
-	
-	public static int[][] arrayClone(int[][] src){
-		
+
+	private static void updateVal(int[][] grid, int row, int col) {
+		// TODO Auto-generated method stub
+		if (row == 0 && col == 0)
+			return;
+
+		if (row == 0) {
+			int sum = grid[row][col] + grid[row][col - 1];
+			grid[row][col] = sum;
+			return;
+		}
+
+		if (col == 0) {
+			int sum = grid[row][col] + grid[row - 1][col];
+			grid[row][col] = sum;
+			return;
+		}
+
+		int sum = grid[row][col] + Math.min(grid[row][col - 1], grid[row - 1][col]);
+		grid[row][col] = sum;
+		return;
+
+	}
+
+	public static int[][] arrayClone(int[][] src) {
+
 		int[][] dup = new int[src.length][src[0].length];
-		
-		for(int i = 0 ; i <src[0].length; i++) {
+
+		for (int i = 0; i < src[0].length; i++) {
 			System.arraycopy(src[i], 0, dup[i], 0, src[i].length);
 		}
 		return dup;
+	}
+	
+	public static int test() {
+		int[][] grid = {
+				{1,3,1},
+				{1,5,1}
+				};
+		
+		int shortest_path = minPath.minPathSum(grid);
+		System.out.println(shortest_path);
+		return shortest_path;
+	}
+	
+	public static int test(int grid[][]) {
+	
+		/*
+		 * 		int[][] grid = {
+				{1,3,1},
+				{1,5,1},
+				{4,2,1}
+			};
+		 */
+		
+		int shortest_path = minPath.minPathSum(grid);
+		System.out.println(shortest_path);
+		return shortest_path;
 	}
 }
