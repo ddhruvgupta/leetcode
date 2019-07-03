@@ -4,8 +4,7 @@ public class test {
 
 	public static void main(String[] args) {
 		
-		int i = -2001;
-		reverseInt.test(i);
-		
+		String test = "-+3";
+		System.out.println(atoi.test(test));
 	}
 }
