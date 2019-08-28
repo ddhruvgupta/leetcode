@@ -5,6 +5,8 @@ public class test {
 	public static void main(String[] args) {
 		
 //		mostWater.test();
-		longestPalindrome lp = new longestPalindrome();
+		String in = new String("paypalishiring");
+		String out = zigzag.convert(in,3);
+		System.out.println(out);
 	}
 }
