@@ -37,4 +37,11 @@ public class zigzag {
 		  }
 	        return new String(zigzag);
 	    }
+	 
+	 public void test() {
+			String in = new String("paypalishiring");
+			String out = convert(in,3);
+			System.out.println(out);
+			return;
+	 }
 }
